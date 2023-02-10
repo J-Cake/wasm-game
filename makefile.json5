@@ -1,0 +1,20 @@
+{
+    targets: {
+        "build/wasm-pkg": {
+            dependencies: ["src/*.rs"],
+            run: "wasm-pack build -d build/wasm-pkg"
+        },
+        "build/index.js": {
+            dependencies: ["build/wasm-pkg"],
+            run: "cat build/wasm-pkg/package.json | jq -r '.module' | xargs -I {} deno run --allow-all esbuild.ts build/wasm-pkg/{} --outdir build"
+        },
+        "build/index.html": {
+            dependencies: ["index.html", "build/index.js"],
+            run: "ln -sfr index.html build/index.html"
+        },
+        clean: {
+            phony: true,
+            run: "cat .gitignore | xargs -I {} echo $PWD/{} | sed -E 's/\\/+/\\//g' | xargs rm -rf"
+        }
+    }
+}

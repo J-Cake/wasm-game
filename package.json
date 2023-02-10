@@ -1,0 +1,11 @@
+{
+    "name": "game",
+    "type": "module",
+    "devDependencies": {
+        "esbuild": "latest",
+        "typescript": "latest",
+        "@j-cake/mkjson": "latest",
+        "@j-cake/jcake-utils": "latest",
+        "@types/node": "latest"
+    }
+}
